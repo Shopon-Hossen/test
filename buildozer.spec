@@ -1,8 +1,3 @@
-# This .spec config file tells Buildozer an app's requirements for being built.
-#
-# It largely follows the syntax of an .ini file.
-# See the end of the file for more details and warnings about common mistakes.
-
 [app]
 
 # (str) Title of your application
@@ -18,7 +13,7 @@ package.domain = org.test
 source.dir = .
 
 # (list) Source files to include (leave empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+#source.include_exts = py,png,jpg,kv,atlas
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -75,7 +70,7 @@ orientation = portrait
 # author = © Copyright Info
 
 # Kivy version to use
-osx.kivy_version = 2.2.0
+osx.kivy_version = 2.3.0
 
 #
 # Android specific
