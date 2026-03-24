@@ -29,7 +29,7 @@ source.dir = .
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 0.2
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -37,7 +37,17 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy==2.3.0, git+https://github.com/kivymd/KivyMD.git@master, pillow
+requirements = python3,
+    kivy,
+    https://github.com/kivymd/KivyMD/archive/master.zip,
+    materialyoucolor,
+    materialshapes,
+    pycairo,
+    pillow,
+    exceptiongroup,
+    asyncgui,
+    asynckivy,
+    android
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -70,7 +80,7 @@ orientation = portrait
 # author = © Copyright Info
 
 # Kivy version to use
-osx.kivy_version = 2.3.0
+osx.kivy_version = 2.3.1
 
 #
 # Android specific
