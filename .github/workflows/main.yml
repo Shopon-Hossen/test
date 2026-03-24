@@ -1,39 +1,44 @@
-name: Build KivyMD APK
+name: Build KivyMD 2.0 APK
 
 on:
   push:
     branches: [ main, master ]
+  workflow_dispatch: # This allows you to run it manually from the "Actions" tab
 
 jobs:
-  build-android:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-22.04 # Pinning to 22.04 is safer for Buildozer right now
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # Force Python 3.10 to prevent the Cython error!
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Best stability for current Kivy/Cython builds
 
-    - name: Install System Dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+      - name: Install System Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
 
-    - name: Install Buildozer & Cython
-      run: |
-        pip install --upgrade pip
-        pip install buildozer cython==0.29.33 virtualenv
+      - name: Install Buildozer & Cython
+        run: |
+          pip install --upgrade pip
+          pip install "cython<3.0" buildozer virtualenv # Pinning Cython prevents the error you saw in Colab
 
-    - name: Build APK with Buildozer
-      run: |
-        buildozer android debug
+      - name: Build with Buildozer
+        run: |
+          # We use "yes |" to auto-accept Android SDK licenses
+          yes | buildozer android debug
+        env:
+          # This helps Buildozer find the right tools on GitHub's runner
+          JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
 
-    # This uploads the finished APK so you can download it
-    - name: Upload APK
-      uses: actions/upload-artifact@v3
-      with:
-        name: my-android-apk
-        path: bin/*.apk
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-kivymd-app
+          path: bin/*.apk
+          retention-days: 3 # Keeps the file for 3 days to save space
