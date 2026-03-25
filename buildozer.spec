@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = My Application
+title = My Application V3
 
 # (str) Package name
 package.name = myapp
@@ -29,7 +29,7 @@ source.dir = .
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.2
+version = 0.3
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -42,12 +42,13 @@ requirements = python3,
     https://github.com/kivymd/KivyMD/archive/master.zip,
     materialyoucolor,
     materialshapes,
-    pycairo,
     pillow,
     exceptiongroup,
     asyncgui,
     asynckivy,
     android
+
+#   pycairo,
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
