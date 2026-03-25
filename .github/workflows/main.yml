@@ -1,9 +1,21 @@
 name: Build KivyMD 2.0 APK
 
 on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch: # This allows you to run it manually from the "Actions" tab
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+      logLevel:
+        description: 'Log level'
+        required: false
+        default: 'info'
+        type: string
 
 jobs:
   build:
